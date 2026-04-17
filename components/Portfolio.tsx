@@ -2,8 +2,28 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
+import smilecareImg from "../smilecare_hero.png";
 
 const projects = [
+  {
+    tag: "Healthcare",
+    tagColor: "#10b981",
+    tagBg: "rgba(16,185,129,0.15)",
+    title: "SmileCare Dental",
+    desc: "A modern, fully-localized dental clinic application featuring an interactive appointment booking system.",
+    stack: ["React", "Tailwind CSS", "Vercel"],
+    stackColors: ["rgba(96,165,250,0.2)", "rgba(52,211,153,0.2)", "rgba(168,85,247,0.15)"],
+    accentColor: "rgba(16,185,129,0.3)",
+    gradientBg: "linear-gradient(135deg, rgba(16,185,129,0.15), rgba(52,211,153,0.08))",
+    href: "https://smilecare-ashy.vercel.app/",
+    image: smilecareImg,
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8 fill-[#10b981]">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+    ),
+  },
   {
     tag: "E-commerce",
     tagColor: "#a855f7",
@@ -33,23 +53,6 @@ const projects = [
     icon: (
       <svg viewBox="0 0 24 24" className="w-8 h-8 fill-[#22d3ee]">
         <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" />
-      </svg>
-    ),
-  },
-  {
-    tag: "Landing Page",
-    tagColor: "#f472b6",
-    tagBg: "rgba(244,114,182,0.15)",
-    title: "Agency Launch Site",
-    desc: "A premium, animated marketing site with scroll-triggered animations, glassmorphism UI, and a 40% increase in conversion rate.",
-    stack: ["Next.js", "Framer Motion", "Vercel"],
-    stackColors: ["rgba(236,72,153,0.2)", "rgba(124,58,237,0.2)", "rgba(168,85,247,0.15)"],
-    accentColor: "rgba(236,72,153,0.3)",
-    gradientBg: "linear-gradient(135deg, rgba(168,85,247,0.15), rgba(236,72,153,0.08))",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8 fill-[#f472b6]">
-        <rect x="2" y="3" width="20" height="14" rx="2" />
-        <path d="M8 21h8M12 17v4" />
       </svg>
     ),
   },
@@ -92,15 +95,19 @@ export default function Portfolio() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {projects.map((p, i) => (
-            <motion.div
+            <motion.a
+              href={p.href}
+              target={p.href ? "_blank" : undefined}
+              rel={p.href ? "noopener noreferrer" : undefined}
               key={p.title}
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.12 }}
-              className="group relative rounded-[20px] overflow-hidden transition-all duration-300 cursor-default"
+              className={`group relative rounded-[20px] overflow-hidden transition-all duration-300 ${p.href ? 'cursor-pointer' : 'cursor-default'}`}
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(255,255,255,0.08)",
+                display: "block"
               }}
               whileHover={{ y: -4, borderColor: p.accentColor }}
             >
@@ -109,25 +116,42 @@ export default function Portfolio() {
                 className="h-44 flex items-center justify-center relative overflow-hidden"
                 style={{ background: p.gradientBg }}
               >
-                <div
-                  className="w-16 h-16 rounded-[18px] flex items-center justify-center"
-                  style={{
-                    background: "rgba(255,255,255,0.06)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    backdropFilter: "blur(10px)",
-                  }}
-                >
-                  {p.icon}
-                </div>
-                {/* Decorative sparkles */}
-                <div
-                  className="absolute top-3 right-4 w-1.5 h-1.5 rounded-full"
-                  style={{ background: p.tagColor, opacity: 0.6 }}
-                />
-                <div
-                  className="absolute bottom-4 left-6 w-2 h-2 rounded-full"
-                  style={{ background: p.tagColor, opacity: 0.4 }}
-                />
+                {p.image ? (
+                  <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-500">
+                    <Image 
+                      src={p.image} 
+                      alt={p.title} 
+                      fill 
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover object-top" 
+                      placeholder="blur"
+                    />
+                    {/* Dark overlay for better blend with the site theme */}
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                  </div>
+                ) : (
+                  <>
+                    <div
+                      className="w-16 h-16 rounded-[18px] flex items-center justify-center"
+                      style={{
+                        background: "rgba(255,255,255,0.06)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        backdropFilter: "blur(10px)",
+                      }}
+                    >
+                      {p.icon}
+                    </div>
+                    {/* Decorative sparkles */}
+                    <div
+                      className="absolute top-3 right-4 w-1.5 h-1.5 rounded-full"
+                      style={{ background: p.tagColor, opacity: 0.6 }}
+                    />
+                    <div
+                      className="absolute bottom-4 left-6 w-2 h-2 rounded-full"
+                      style={{ background: p.tagColor, opacity: 0.4 }}
+                    />
+                  </>
+                )}
               </div>
 
               {/* Content */}
@@ -138,8 +162,23 @@ export default function Portfolio() {
                 >
                   {p.tag}
                 </span>
-                <h3 className="font-syne font-bold text-[1.1rem] text-[#e2e8f0] mb-2">
+                <h3 className="font-syne font-bold text-[1.1rem] text-[#e2e8f0] mb-2 flex items-center justify-between">
                   {p.title}
+                  {p.href && (
+                    <svg
+                      className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
+                    </svg>
+                  )}
                 </h3>
                 <p className="text-[#94a3b8] text-[0.85rem] leading-[1.65] mb-4">
                   {p.desc}
@@ -156,7 +195,7 @@ export default function Portfolio() {
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </motion.a>
           ))}
         </div>
       </div>
