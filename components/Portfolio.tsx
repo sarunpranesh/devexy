@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import smilecareImg from "../smilecare_hero.png";
+import malligaiImg from "../Malligai Restaurant.png";
 
 const projects = [
   {
@@ -21,6 +22,24 @@ const projects = [
     icon: (
       <svg viewBox="0 0 24 24" className="w-8 h-8 fill-[#10b981]">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+    ),
+  },
+  {
+    tag: "Dining",
+    tagColor: "#f59e0b",
+    tagBg: "rgba(245,158,11,0.15)",
+    title: "Malligai Restaurant",
+    desc: "A premium, high-conversion South Indian restaurant website featuring a smart menu system and a gamified loyalty program.",
+    stack: ["React", "CSS", "Framer Motion"],
+    stackColors: ["rgba(96,165,250,0.2)", "rgba(56,189,248,0.2)", "rgba(236,72,153,0.15)"],
+    accentColor: "rgba(245,158,11,0.3)",
+    gradientBg: "linear-gradient(135deg, rgba(245,158,11,0.15), rgba(251,191,36,0.08))",
+    href: "https://malligai.vercel.app/",
+    image: malligaiImg,
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8 fill-[#f59e0b]">
+        <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
       </svg>
     ),
   },
